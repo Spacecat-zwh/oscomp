@@ -1,7 +1,7 @@
 # platform	:= k210
 platform	:= qemu
-# mode := debug
-mode := release
+mode := debug
+# mode := release
 K=kernel
 U=xv6-user
 T=target
@@ -53,7 +53,7 @@ OBJS += \
 else
 OBJS += \
   $K/virtio_disk.o \
-  #$K/uart.o \
+  $K/uart.o \
 
 endif
 
@@ -248,4 +248,5 @@ clean:
 	$K/kernel \
 	.gdbinit \
 	$U/usys.S \
+	fs.img \
 	$(UPROGS)
