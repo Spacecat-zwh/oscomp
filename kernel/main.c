@@ -28,6 +28,8 @@ static inline void inithartid(unsigned long hartid) {
 
 volatile static int started = 0;
 
+extern char _entry[];
+
 void
 main(unsigned long hartid, unsigned long dtb_pa)
 {
@@ -61,6 +63,7 @@ main(unsigned long hartid, unsigned long dtb_pa)
     for(int i = 1; i < NCPU; i++) {
       unsigned long mask = 1 << i;
       sbi_send_ipi(&mask);
+      start_hart(i, (uint64)_entry, 0);
     }
     __sync_synchronize();
     started = 1;
